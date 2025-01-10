@@ -1,0 +1,30 @@
+{% sw_extends '@Storefront/storefront/block/cms-block-gallery-buybox.html.twig' %}
+
+{% block block_gallery_buybox %}
+    {% block block_gallery_buybox_column_left %}
+        {% set element = block.slots.getSlot('left') %}
+        {% set config = element.fieldConfig.elements %}
+
+        <div class="col-lg-7 product-detail-media" data-cms-element-id="{{ element.id }}">
+            {% block block_gallery_buybox_column_left_inner %}
+                {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing
+                    with {
+                    isProduct: config.sliderItems.value == 'product.media' and config.sliderItems.source == 'mapped',
+                    startIndexThumbnails: 1,
+                    startIndexSlider: 1
+                } %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block block_gallery_buybox_column_right %}
+        {% set element = block.slots.getSlot('right') %}
+
+        <div class="col-lg-5 product-detail-buy" data-cms-element-id="{{ element.id }}">
+            {% block block_gallery_buybox_column_right_inner %}
+                {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                {% sw_include '@Storefront/storefront/page/product-detail/tabs.html.twig' %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -20,4 +20,5 @@ public/asset-manifest.json
 ###< shopware/core ###
 
 # Default Plugins will ich nicht in GIT
-/custom/plugins/*
+/custom/plugins/SwagPayPal
+/custom/plugins/SwagPlatformDemoData
