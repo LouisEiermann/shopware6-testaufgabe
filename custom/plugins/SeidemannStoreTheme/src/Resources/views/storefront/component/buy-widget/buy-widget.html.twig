@@ -1,7 +1,7 @@
 {% sw_extends '@Storefront/storefront/component/buy-widget/buy-widget.html.twig' %}
 
 {% block buy_widget %}
-    <span class="eyebrow text-muted">{{product.manufacturer.translated.name}}</span>
+    <span class="manufacturer">{{product.manufacturer.translated.name}}</span>
     <h1>{{product.translated.name}}</h1>
     
     {{parent()}}
@@ -11,4 +11,7 @@
 {% endblock %}
 
 {% block buy_widget_ordernumber_container %}
+{% endblock %}
+
+{% block buy_widget_reviews %}
 {% endblock %}

@@ -1,0 +1,54 @@
+{% sw_extends '@Storefront/storefront/component/buy-widget/configurator.html.twig' %}
+
+{% block buy_widget_configurator %}
+    {{ parent() }}
+
+    <p class="product-number-label">Product Code</p>
+    <p class="product-number">{{ product.productNumber }}</p>
+{% endblock %}
+
+{% block buy_widget_configurator_option %}
+<div class="product-detail-configurator-option {% if group.name == 'Size' %}size-option{% endif %}">
+    {% block buy_widget_configurator_option_radio %}
+        <input type="radio"
+                name="{{ group.id }}"
+                value="{{ option.id }}"
+                class="product-detail-configurator-option-input{% if isCombinableCls %} {{ isCombinableCls }}{% endif %}"
+                title="{{ optionIdentifier }}"
+                id="{{ optionIdentifier }}"
+                {% if isActive %}checked="checked"{% endif %}>
+
+        {% block buy_widget_configurator_option_radio_label %}
+            <label class="product-detail-configurator-option-label{% if isCombinableCls %} {{ isCombinableCls }}{% endif %} is-display-{{ displayType }}"
+                {% if displayType == 'color' and option.colorHexCode %}
+                    style="background-color: {{ option.colorHexCode }}"
+                {% endif %}
+                    title="{{ option.translated.name }}"
+                    for="{{ optionIdentifier }}">
+
+                {% if displayType == 'media' and media %}
+                    {% block buy_widget_configurator_option_radio_label_media %}
+                        {% sw_thumbnails 'configurator-option-img-thumbnails' with {
+                            media: media,
+                            sizes: {
+                                default: '52px'
+                            },
+                            attributes: {
+                                class: 'product-detail-configurator-option-image',
+                                alt: option.translated.name,
+                                title: option.translated.name
+                            }
+                        } %}
+                    {% endblock %}
+                {% elseif displayType == 'text' or
+                    (displayType == 'media' and not media) or
+                    (displayType == 'color' and not option.colorHexCode) %}
+                    {% block buy_widget_configurator_option_radio_label_text %}
+                        {{ option.translated.name }}
+                    {% endblock %}
+                {% endif %}
+            </label>
+        {% endblock %}
+    {% endblock %}
+</div>
+{% endblock %}

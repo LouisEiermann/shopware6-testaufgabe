@@ -6,7 +6,7 @@
     {% set isRegulationPrice = price.regulationPrice != null %}
 
     <p class="product-detail-price{% if isListPrice %} with-list-price{% endif %}{% if isRegulationPrice %} with-regulation-price{% endif %}">
-        {{ price.unitPrice|currency }}
+        ${{ price.unitPrice|number_format(0, '', '') }}
     </p>
 
     {% if isListPrice %}

@@ -23,7 +23,55 @@
         <div class="col-lg-5 product-detail-buy" data-cms-element-id="{{ element.id }}">
             {% block block_gallery_buybox_column_right_inner %}
                 {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
-                {% sw_include '@Storefront/storefront/page/product-detail/tabs.html.twig' %}
+                
+                <div class="custom-accordion mt-5">
+                    <div class="accordion" id="productAccordion">
+
+                        <!-- Product Description -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingDescription">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDescription" aria-expanded="true" aria-controls="collapseDescription">
+                                    Details
+                                </button>
+                            </h2>
+                            <div id="collapseDescription" class="accordion-collapse collapse show" aria-labelledby="headingDescription" data-bs-parent="#productAccordion">
+                                <div class="accordion-body">
+                                    {{ page.product.translated.description|raw }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Custom Delivery Info -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingDeliveryInfo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDeliveryInfo" aria-expanded="false" aria-controls="collapseDeliveryInfo">
+                                    Shipping & Returns
+                                </button>
+                            </h2>
+                            <div id="collapseDeliveryInfo" class="accordion-collapse collapse" aria-labelledby="headingDeliveryInfo" data-bs-parent="#productAccordion">
+                                <div class="accordion-body">
+                                    <p>Delivery within 2–3 business days. Free shipping for orders over €50!</p>
+                                    <p>For express shipping, please contact our customer service.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Reviews -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingReviews">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReviews" aria-expanded="false" aria-controls="collapseReviews">
+                                    Reviews
+                                </button>
+                            </h2>
+                            <div id="collapseReviews" class="accordion-collapse collapse" aria-labelledby="headingReviews" data-bs-parent="#productAccordion">
+                                <div class="accordion-body">
+                                    <div>{{dump(page.product)}}</div>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endblock %}
         </div>
     {% endblock %}
