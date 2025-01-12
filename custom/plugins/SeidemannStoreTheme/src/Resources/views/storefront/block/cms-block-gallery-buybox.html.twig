@@ -56,20 +56,46 @@
                             </div>
                         </div>
 
-                        <!-- Product Reviews -->
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingReviews">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReviews" aria-expanded="false" aria-controls="collapseReviews">
-                                    Reviews
-                                </button>
-                            </h2>
-                            <div id="collapseReviews" class="accordion-collapse collapse" aria-labelledby="headingReviews" data-bs-parent="#productAccordion">
-                                <div class="accordion-body">
-                                    <div>{{dump(page.product)}}</div>
-                                  
+                        {% set reviews = page.product.productReviews %}
+                        {% if reviews|length > 0 %}
+                            {% set totalPoints = reviews|reduce((carry, review) => carry + review.points, 0) %}
+                            {% set averagePoints = (totalPoints / reviews|length)|round(2, 'common') %}
+                        {% else %}
+                            {% set averagePoints = 0 %}
+                        {% endif %}
+
+                        {% if reviews|length > 0 %}
+                            <!-- Product Reviews -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingReviews">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReviews" aria-expanded="false" aria-controls="collapseReviews">
+                                        Reviews
+                                    </button>
+                                </h2>
+                                <div id="collapseReviews" class="accordion-collapse collapse" aria-labelledby="headingReviews" data-bs-parent="#productAccordion">
+                                    <div class="accordion-body">
+                                        <p>{{page.product.translated.name}} is rated <strong>{{averagePoints}}</strong> out of 5 by {{reviews|length}}.</p>
+                                        <hr/>
+                                        {% for review in page.product.productReviews %}
+                                        <p>
+                                        {% for i in 1..5 %}
+                                            {% if i <= review.points %}
+                                            <i class="bi bi-star-fill"></i>  {# Filled star #}
+                                            {% else %}
+                                            <i class="bi bi-star"></i>  {# Empty star #}
+                                            {% endif %}
+                                        {% endfor %}
+                                        </p>
+                                            <p>{{ review.points }} Stars: {{ review.externalUser }} on {{ review.createdAt|date('F j, Y') }}</p>
+                                            <strong>{{review.title}}</strong>
+                                            <p>{{review.content}}</p>
+                                            <hr/>
+                                        {% endfor %}
+                                        <p>Add a review</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             {% endblock %}

@@ -134,3 +134,19 @@
     display: none;
 }
 
+.gallery-slider-controls-next.is-nav-next-outside {
+    right: 75px;
+}
+
+.gallery-slider-controls-prev.is-nav-prev-outside {
+    left: 75px;
+}
+
+.gallery-slider-thumbnails-item {
+    height: 140px;
+    width: 100%;
+}
+
+.gallery-slider-thumbnails-item-inner {
+    padding: 0;
+}
